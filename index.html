@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokpong Songmuang</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #333;
+        }
+        header {
+            background-color: #003366;
+            padding: 20px;
+            text-align: center;
+            color: #fff;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        nav {
+            text-align: center;
+            padding: 10px;
+            background-color: #005b99;
+        }
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+        }
+        .container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        section {
+            margin-bottom: 40px;
+        }
+        section h2 {
+            font-size: 2em;
+            border-bottom: 2px solid #003366;
+            padding-bottom: 10px;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #005b99;
+            color: #fff;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .profile-image {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .profile-image img {
+            max-width: 150px;
+            height: auto;
+            border-radius: 50%;
+        }
+        .profile-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Pokpong Songmuang</h1>
+</header>
+
+<nav>
+    <a href="#about">About Me</a>
+    <a href="#research">My Research</a>
+    <a href="#awards">Awards</a>
+    <a href="#experience">Experience</a>
+</nav>
+
+<div class="container">
+
+    <section id="about">
+        <h2>About Me</h2>
+        <div class="profile-image">
+            <img src="https://cs.sci.tu.ac.th/wp-content/uploads/2020/05/Picture16.jpg" alt="Pokpong Songmuang">
+        </div>
+        <div class="profile-info">
+            <p>Hello! I am Pokpong Songmuang, a lecturer at Thammasat University. I am passionate about teaching and research in the field of technology. My goal is to inspire and educate students to become proficient in their chosen fields and contribute positively to society.</p>
+            <p><strong>Office:</strong> Room 123, Department of Computer Science, Thammasat University</p>
+            <p><strong>ORCID:</strong> <a href="https://orcid.org/0000-0002-4831-686X" target="_blank">0000-0002-4831-686X</a></p>
+        </div>
+    </section>
+
+    <section id="research">
+        <h2>My Research</h2>
+        <h3>Research Profile</h3>
+        <p>Pokpong Songmuang is a lecturer at Thammasat University, with research interests in artificial intelligence, digital competence, and data science. His work includes studies on the Bees algorithm for test construction, computerized adaptive testing, salary prediction systems for student motivation, and activity recognition using supervised learning models. He has contributed to the field through numerous publications and aims to leverage technology to solve real-world problems and enhance educational outcomes.</p>
+        <p>For more details, you can visit <a href="https://scholar.google.co.th/citations?user=UCNA6dQAAAAJ&hl=th" target="_blank">Pokpong Songmuang's Google Scholar Profile</a> or <a href="https://orcid.org/0000-0002-4831-686X" target="_blank">ORCID Profile</a>.</p>
+        <h3>Publications</h3>
+        <ul id="publications-list">
+            <!-- Publications will be dynamically inserted here -->
+        </ul>
+    </section>
+
+    <section id="awards">
+        <h2>Awards</h2>
+        <ul>
+            <li>Best Paper Award at The International Conference on Cybernetics and Innovations - 2022</li>
+            <li>Best Paper Award at International Conference on Knowledge Information and Creativity Support System - 2017</li>
+            <li>Outstanding Researcher Award, Thammasat University - 2016</li>
+            <li>Best Paper Award from Japan Association for Research on Testing - 2008</li>
+            <li>Best Paper Award from Japanese Society for Information and Systems in Education - 2008</li>
+            <li>Japanese Government Scholarship for Master’s and Doctoral Studies - 2005-2008</li>
+        </ul>
+    </section>
+
+    <section id="experience">
+        <h2>Experience</h2>
+        <ul>
+            <li>Director, IT and Communication Technology Center, Thammasat University (2017-2022)</li>
+            <li>Deputy Head, Computer Science Department, Faculty of Science and Technology (2013-2014)</li>
+            <li>Lecturer, Computer Science Department, Faculty of Science and Technology (2013-Present)</li>
+            <li>Assistant Professor, Faculty of Human Sciences, Waseda University, Japan (2010-2011)</li>
+            <li>Researcher, Japan Institute for Educational Measurement, Tokyo, Japan (2009-2010)</li>
+            <li>Research Assistant, Graduate School of Information Systems, The University of Electro-Communications, Tokyo, Japan (2005-2009)</li>
+        </ul>
+    </section>
+
+</div>
+
+<footer>
+    <p>&copy; 2024 Pokpong Songmuang</p>
+</footer>
+
+<script>
+    async function fetchORCIDData() {
+        try {
+            const response = await fetch('https://pub.orcid.org/v3.0/0000-0002-4831-686X/works', {
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+            const data = await response.json();
+            const publicationsList = document.getElementById('publications-list');
+            data.group.forEach((work, index) => {
+                const title = work['work-summary'][0].title.title.value;
+                const year = work['work-summary'][0]['publication-date'] ? work['work-summary'][0]['publication-date'].year.value : 'N/A';
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `<strong>${index + 1}. ${title} - ${year}</strong>`;
+                publicationsList.appendChild(listItem);
+            });
+        } catch (error) {
+            console.error('Error fetching ORCID data:', error);
+        }
+    }
+
+    fetchORCIDData();
+</script>
+
+</body>
+</html>
